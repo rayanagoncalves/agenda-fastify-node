@@ -11,3 +11,5 @@ class UserUseCase {
 
     async create({name, email}: UserCreate): Promise<User> {}
 }
+
+export { UserUseCase } 
