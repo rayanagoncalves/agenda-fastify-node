@@ -2,6 +2,8 @@ export interface User {
     id: string
     email: string
     name: string
+    createdAt: Date
+    updatedAt: Date
 }
 
 export interface UserCreate {
@@ -9,5 +11,5 @@ export interface UserCreate {
     name: string
 }
 export interface UserRepository {
-    create(data: User): Promise<User>
+    create(data: UserCreate): Promise<User>
 }

@@ -1,5 +1,4 @@
-import { User } from "@prisma/client";
-import { UserCreate, UserRepository } from "../interfaces/user.interface";
+import { User, UserCreate, UserRepository } from "../interfaces/user.interface";
 import { UserRepositoryPrisma } from "../repositories/user.repository";
 
 class UserUseCase {
@@ -9,7 +8,10 @@ class UserUseCase {
         this.userRepository = new UserRepositoryPrisma()
     }
 
-    async create({name, email}: UserCreate): Promise<User> {}
+    async create({name, email}: UserCreate): Promise<User> {
+        const result = this.userRepository.create({email, name})
+       return result
+    }
 }
 
 export { UserUseCase } 
