@@ -1,6 +1,6 @@
-import { ContactCreate, ContactRepository } from "../interfaces/contact.interface";
+import { Contact, ContactCreate, ContactRepository } from "../interfaces/contact.interface";
 import { UserRepository } from "../interfaces/user.interface";
-import { ContactRepositoryPrisma } from "../repositories/contacts.repository";
+import { ContactRepositoryPrisma } from "../repositories/contact.repository";
 import { UserRepositoryPrisma } from "../repositories/user.repository";
 
 class ContactUseCase {
@@ -33,6 +33,24 @@ class ContactUseCase {
         })
 
         return contact
+    }
+
+    async listAllContacts(userEmail: string) {
+        const user = await this.userRepository.findByEmail(userEmail)
+
+        if(!user) {
+            throw new Error('User not found')
+        }
+
+        const contacts = await this.contactRepository.findAllContacts(user.id)
+
+        return contacts
+    }
+
+    async updateContact({id, name, email, phone}: Contact) {
+        const data = await this.contactRepository.updateContact({ id, name, email, phone })
+
+        return data
     }
 }
 

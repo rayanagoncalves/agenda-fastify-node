@@ -15,7 +15,10 @@ class ContactRepositoryPrisma implements ContactRepository {
     return result;
   }
 
-  async findByEmailOrPhone(email: string, phone: string): Promise<Contact | null> {
+  async findByEmailOrPhone(
+    email: string,
+    phone: string
+  ): Promise<Contact | null> {
     const result = await prisma.contacts.findFirst({
       where: {
         OR: [
@@ -30,6 +33,31 @@ class ContactRepositoryPrisma implements ContactRepository {
     });
 
     return result || null;
+  }
+
+  async findAllContacts(userId: string): Promise<Contact[]> {
+    const result = await prisma.contacts.findMany({
+        where: {
+            userId
+        }
+    })
+
+    return result
+  }
+
+  async updateContact({ id, name, email, phone }: Contact): Promise<Contact> {
+    const result = await prisma.contacts.update({
+      where: {
+        id
+      }, 
+      data: {
+        name,
+        email,
+        phone
+      }
+    })
+
+    return result
   }
 }
 
