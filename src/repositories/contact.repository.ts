@@ -59,6 +59,16 @@ class ContactRepositoryPrisma implements ContactRepository {
 
     return result
   }
+
+  async deleteContact(id: string) {
+    const result = await prisma.contacts.delete({
+      where: {
+        id
+      }
+    })
+
+    return result ? true : false
+  }
 }
 
 export { ContactRepositoryPrisma }

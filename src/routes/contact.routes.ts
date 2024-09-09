@@ -46,4 +46,13 @@ export async function contactRoutes(fastify: FastifyInstance){
             reply.send(error)
         }
     })
+    fastify.delete<{ Params: { id: string }}>('/:id', async (req, reply) => {
+        const { id } = req.params
+        try {
+            const data = await contactUseCase.deleteContact(id)
+            reply.send(data)
+        } catch(error) {
+            reply.send(error)
+        }
+    })
 }

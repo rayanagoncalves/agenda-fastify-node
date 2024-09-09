@@ -25,4 +25,5 @@ export interface ContactRepository {
     findByEmailOrPhone(email: string, phone: string): Promise<Contact | null>
     findAllContacts(userId: string): Promise<Contact[]>
     updateContact({ id, name, email, phone }: Contact): Promise<Contact>
+    deleteContact(id: string): Promise<boolean>
 }
